@@ -1,0 +1,25 @@
+type: mit_b2
+
+image_size: 256
+stride: 64
+resize_ratio: 1
+
+lr: 1e-4
+num_epochs: 10
+
+z_start: 10
+z_end: 55
+img_depth: 3
+num_instances: 16
+
+batch_size: 4
+
+is3d: False
+
+# encoder
+encoder:
+  backbone: "mit_b2"
+  # number of input channels to the model
+  in_channels: ${model.img_depth}
+  # number of output channels from the model
+  out_channels: 256

@@ -1,0 +1,47 @@
+type: ResidualUNet3D
+
+image_size: 1024
+stride: 256
+resize_ratio: 2
+
+lr: 5e-4
+num_epochs: 50
+
+z_start: 20
+z_end: 55
+img_depth: 8
+num_instances: 8
+
+batch_size: 1
+
+is3d: True
+
+# encoder
+encoder:
+  name: "ResidualEncoder3D"
+  # number of input channels to the model
+  in_channels: 1
+  # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
+  layer_order: "gcr"
+  # number of features at each level of the U-Net
+  f_maps: [32, 64, 128, 256]
+  # number of groups in the groupnorm
+  num_groups: 8
+  # number of pool operators at each level
+  pool_kernel_size: [1, 2, 2]
+
+decoder:
+  name: "ResidualDecoder3D"
+  # number of output channels
+  out_channels: 32
+  # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
+  layer_order: "gcr"
+  # number of features at each level of the U-Net
+  f_maps: [32, 64, 128, 256]
+  # number of groups in the groupnorm
+  num_groups: 8
+  # if True applies the final normalization layer (sigmoid or softmax), otherwise the networks returns the output from the final convolution layer; use False for regression problems, e.g. de-noising
+  is_segmentation: False
+  upsampling_conv_kernel_size: [1, 3, 3]
+  scale_factor: [1, 2, 2]
+  upsampling_padding: [0, 1, 1]
