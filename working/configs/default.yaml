@@ -1,0 +1,26 @@
+project_name: "vesuvius-challenge-ink-detection"
+exp_name: "debug"
+job_type: "debug"
+
+defaults:
+  - model: residualunet3d
+  - _self_
+
+debug: False
+wandb_logger: True
+random_seed: 42
+
+label_smooth_factor: 0.25
+
+inklabels_ignore_edge: 1
+mask_ignore_edge: 10
+
+loss_alpha: 0.5
+
+fold: 0
+num_folds: 5
+num_workers: 8
+
+input_dir: "../input/vcid-validation"
+ignore_inklabel_dir: "../input/vcid-modify-inklabels"
+train_csv_path: "../input/vcid-tile-images-inklabels-${model.image_size}-${model.stride}/train.csv"
